@@ -62,7 +62,7 @@ def event_handlers(client):
             return
         print("KEYWORD=" + keyword)
 
-        if keyword in text.upper:
+        if keyword in text.upper():
             print("KEYWORD FOUND")
             image_url = get_imagerepo(channel_id)
             if image_url is None:
