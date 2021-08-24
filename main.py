@@ -64,7 +64,7 @@ def event_handlers(client):
 
         if keyword in text.upper():
             print("KEYWORD FOUND")
-            image_url = get_imagerepo(channel_id)
+            image_url = get_image_from_repo(channel_id)
             if image_url is None:
                 print("REPO NOT SET")
                 await message.channel.send('O repositório não está definido')
