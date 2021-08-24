@@ -8,6 +8,8 @@ import random
 def main():
     client = discord.Client()
 
+    create_database()
+
     event_handlers(client)
 
     token = os.environ.get('TOKEN')
