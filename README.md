@@ -1,1 +1,0 @@
-Image-Trigger-Discord-Bot
