@@ -127,7 +127,8 @@ def exec_comando_wb_eurotruck():
     info = pega_infos_euro_truck()
     tempo_decorrido = get_time_eurotruck(int(info['hours_forever']))
     ultima_vez = pega_ultima_vez_wallace(info['last_played'])
-    response_message = "Tempo decorrido desde o ultimo comando: " + str(tempo_decorrido) + "\n" \
+    response_message = info['logo'] + "\n" \
+                       + "Tempo decorrido desde o ultimo comando: " + str(tempo_decorrido) + "\n" \
                        + "Ultima vez que jogou: " + str(ultima_vez) + "\n" \
                        + "Horas totais: " + info['hours_forever']
     return response_message
