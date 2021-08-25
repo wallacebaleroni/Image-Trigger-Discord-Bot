@@ -32,7 +32,7 @@ def event_handlers(client):
         channel_id = message.channel.id
         text = message.content
 
-        print("CHANNEL_ID="+message.content)
+        print("CHANNEL_ID="+str(channel_id))
         print("MESSAGE="+text)
 
         if state.is_setting_keyword:
