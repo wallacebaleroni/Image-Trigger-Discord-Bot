@@ -25,6 +25,11 @@ def create_database():
                                 chat_id numeric,
                                 repo text  
                       )""")
+
+    cursor.execute("""CREATE TABLE IF NOT EXISTS eurotruck (
+                                    time  
+                          )""")
+
     conn.commit()
 
     cursor.close()
@@ -89,3 +94,26 @@ def get_imagerepo(chat_id):
         repo = repo[0][0]
 
     return repo
+
+
+def get_time_eurotruck(tempo_agora):
+    conn, cursor = connect_db()
+    cursor.execute("""SELECT * FROM eurotruck""")
+    eurotruck = cursor.fetchall()
+
+    if len(eurotruck) > 0:
+        cursor.execute("""INSERT INTO eurotruck VALUES({0})""".format(tempo_agora))
+    elif len(eurotruck) == 1:
+        for row in eurotruck:
+            tempo_antigo = row[0]
+            print(tempo_agora - tempo_antigo)
+            if tempo_agora > tempo_antigo:
+                cursor.execute("""UPDATE eurotruck SET repo={0}""".format(tempo_agora))
+
+            cursor.close()
+            conn.close()
+            return tempo_agora - tempo_antigo
+
+    cursor.close()
+    conn.close()
+    return 0
