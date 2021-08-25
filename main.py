@@ -3,6 +3,8 @@ import state
 from postgreConnection import *
 import requests
 import random
+import json
+import time
 
 
 def main():
@@ -32,8 +34,8 @@ def event_handlers(client):
         channel_id = message.channel.id
         text = message.content
 
-        print("CHANNEL_ID="+message.content)
-        print("MESSAGE="+text)
+        print("CHANNEL_ID=" + message.content)
+        print("MESSAGE=" + text)
 
         if state.is_setting_keyword:
             set_keyword(text.upper(), channel_id)
@@ -73,6 +75,10 @@ def event_handlers(client):
         else:
             print("KEYWORD NOT FOUND")
 
+        if '$wbeuro' in text.upper():
+            str = exec_comando_wb_eurotruck()
+            await message.channel.send(str)
+
         return
 
 
@@ -98,4 +104,29 @@ def get_image_from_repo(channel_id):
     return random.choice(repo)
 
 
-main()
+# tralha do rapael
+def pega_infos_euro_truck():
+    r = requests.get('https://steamcommunity.com/id/wallacebaleroni/games/?tab=all')
+    response = r.text
+    infos = response.split('var rgGames = ')[1].split(';')[0]
+    infos = json.loads(infos)
+    for info in infos:
+        if info['name'] == 'Euro Truck Simulator 2':
+            euro_truck = info
+            return euro_truck
+
+
+# euro_truck['last_played']
+def pega_ultima_vez_wallace(epoch_time):
+    time_val = time.strftime('%d/%m/%Y %H:%M:%S', time.localtime(epoch_time))
+    return time_val
+
+
+def exec_comando_wb_eurotruck():
+    info = pega_infos_euro_truck()
+    tempo_decorrido = get_time_eurotruck(int(info['hours_forever']))
+    ultima_vez = pega_ultima_vez_wallace(info['last_played'])
+    str = "Tempo decorrido desde o ultimo comando: " + tempo_decorrido + "\n" + "Ultima vez que jogou: " + ultima_vez
+    return str
+
+# main()
