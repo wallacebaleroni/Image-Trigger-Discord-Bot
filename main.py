@@ -34,7 +34,7 @@ def event_handlers(client):
         channel_id = message.channel.id
         text = message.content
 
-        print("CHANNEL_ID=" + message.content)
+        print("CHANNEL_ID=" + str(channel_id))
         print("MESSAGE=" + text)
 
         if state.is_setting_keyword:
@@ -75,9 +75,10 @@ def event_handlers(client):
         else:
             print("KEYWORD NOT FOUND")
 
-        if '$wbeuro' in text.upper():
-            str = exec_comando_wb_eurotruck()
-            await message.channel.send(str)
+        if '$WBEURO' in text.upper():
+            print("COMMAND WBEURO")
+            response_message = exec_comando_wb_eurotruck()
+            await message.channel.send(response_message)
 
         return
 
@@ -126,7 +127,7 @@ def exec_comando_wb_eurotruck():
     info = pega_infos_euro_truck()
     tempo_decorrido = get_time_eurotruck(int(info['hours_forever']))
     ultima_vez = pega_ultima_vez_wallace(info['last_played'])
-    str = "Tempo decorrido desde o ultimo comando: " + tempo_decorrido + "\n" + "Ultima vez que jogou: " + ultima_vez
-    return str
+    response_message = "Tempo decorrido desde o ultimo comando: " + str(tempo_decorrido) + "\n" + "Ultima vez que jogou: " + str(ultima_vez)
+    return response_message
 
-# main()
+main()

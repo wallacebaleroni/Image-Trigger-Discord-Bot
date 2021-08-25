@@ -27,7 +27,7 @@ def create_database():
                       )""")
 
     cursor.execute("""CREATE TABLE IF NOT EXISTS eurotruck (
-                                    time  
+                                    time  numeric
                           )""")
 
     conn.commit()
